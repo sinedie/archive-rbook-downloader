@@ -27,6 +27,10 @@ class InternetArchive:
         if not os.path.exists(output_folder):
             os.mkdir(output_folder)
 
+        img_folder = os.path.join(output_folder, "/img")
+        if not os.path.exists(img_folder):
+            os.mkdir(img_folder)
+
         downloaded = []
         not_downloaded = []
         i = 0
@@ -50,8 +54,8 @@ class InternetArchive:
                         found = True
                         downloaded.append(request.url)
                         name = os.path.join(
-                            output_folder,
-                            f"/img/{str(i).zfill(len(str(book.n_pages)))}.png",
+                            img_folder,
+                            f"{str(i).zfill(len(str(book.n_pages)))}.png",
                         )
                         with open(name, "wb") as f:
                             f.write(request.response.body)
@@ -79,7 +83,7 @@ class InternetArchive:
             with open(os.path.join(output_folder, f"errors.txt", "w")) as f:
                 f.writelines(not_downloaded)
 
-        book.compress(output_folder, os.path.join(output_folder, "/img"))
+        book.compress(output_folder, img_folder)
 
     def download_books(self, urls, output_folder):
         if type(urls) == str:
