@@ -1,0 +1,7 @@
+book
+.vscode
+venv
+cbz.py
+__pycache__
+*.pyc
+geckodriver.log
